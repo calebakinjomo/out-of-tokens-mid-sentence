@@ -4,13 +4,15 @@
 // mid-word, so the sentence it reports on is the sentence it is.
 import { mkdirSync, writeFileSync } from "node:fs";
 
+const MAX_ENTRY_CHARS = 140;
+
 const ENTRY =
   "Error 402: tokens exhausted mid-sentence. The rest of this message has been reposs\u2014";
 
 // The gate refuses anything over 140 characters, so fail loudly here
 // instead of shipping a line the judge never sees.
-if (ENTRY.length > 140 || ENTRY.trim().length === 0) {
-  throw new Error(`Entry is ${ENTRY.length} characters; must be 1-140.`);
+if (ENTRY.length > MAX_ENTRY_CHARS || ENTRY.trim().length === 0) {
+  throw new Error(`Entry is ${ENTRY.length} characters; must be 1-${MAX_ENTRY_CHARS}.`);
 }
 
 mkdirSync("/output", { recursive: true });
